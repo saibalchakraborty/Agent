@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.demo.agent.model.Person;
 import com.demo.agent.repository.PersonRepository;
 
+import com.demo.agent.util.PIIMaskingUtil;
+
 @Service
 public class DemoService {
 
@@ -36,8 +38,8 @@ public class DemoService {
             p.setLastName(person.getLastName());
             p.setAge(person.getAge());
             p.setGender(person.getGender());
-            p.setEmailId(person.getEmailId());
-            p.setPhoneNumber(person.getPhoneNumber());
+            p.setEmailId(PIIMaskingUtil.maskEmail(person.getEmailId()));
+            p.setPhoneNumber(PIIMaskingUtil.maskPhone(person.getPhoneNumber()));
             return p;
         }).collect(Collectors.toList());
     }
